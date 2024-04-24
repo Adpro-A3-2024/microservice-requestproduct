@@ -10,4 +10,5 @@ public class RequestProduct {
     private String pictureUrl;
     private double price;
     private String url;
+
 }

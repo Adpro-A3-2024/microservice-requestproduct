@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+@Repository
 public class RequestProductRepository {
     private List<RequestProduct> requestProductData = new ArrayList<>();
     static long counter = 0;
@@ -19,5 +20,14 @@ public class RequestProductRepository {
 
     public Iterator<RequestProduct> findAll() {
         return requestProductData.iterator();
+    }
+
+    public RequestProduct findById(String id){
+        for (RequestProduct saved : requestProductData){
+            if (saved.getId().equals(id)){
+                return saved;
+            }
+        }
+        return null;
     }
 }
