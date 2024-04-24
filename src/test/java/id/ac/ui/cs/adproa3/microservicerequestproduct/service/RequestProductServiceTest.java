@@ -26,6 +26,7 @@ public class RequestProductServiceTest {
 
     @BeforeEach
     void setUp() {
+        requestProducts = new ArrayList<>();
         RequestProduct requestProduct = new RequestProduct();
         requestProduct.setId("1");
         requestProduct.setName("Gundam");
