@@ -5,6 +5,8 @@ import id.ac.ui.cs.adproa3.microservicerequestproduct.repository.RequestProductR
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -23,6 +25,14 @@ public class RequestProductServiceImpl implements RequestProductService{
 
     @Override
     public List<RequestProduct> findAll() {
-        return null;
+        Iterator<RequestProduct> iterator = requestProductRepository.findAll();
+        List<RequestProduct> requestProducts = new ArrayList<>();
+        iterator.forEachRemaining(requestProducts::add);
+        return requestProducts;
+    }
+
+    @Override
+    public RequestProduct findById(String id) {
+        return requestProductRepository.findById(id);
     }
 }

@@ -7,4 +7,5 @@ import java.util.List;
 public interface RequestProductService {
     public RequestProduct create(RequestProduct requestProduct);
     public List<RequestProduct> findAll();
+    public RequestProduct findById(String id);
 }
