@@ -1,1 +1,1 @@
-rootProject.name = "microservice-requestproduct"
+rootProject.name = "microservice_requestproduct"
