@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class RequestProductServiceImpl implements RequestProductService{
@@ -16,23 +17,17 @@ public class RequestProductServiceImpl implements RequestProductService{
 
     @Override
     public RequestProduct create(RequestProduct requestProduct) {
-        if (requestProductRepository.findById(requestProduct.getId()) == null){
-            requestProductRepository.create(requestProduct);
-            return requestProduct;
-        }
-        return null;
+        requestProductRepository.save(requestProduct);
+        return requestProduct;
     }
 
     @Override
     public List<RequestProduct> findAll() {
-        Iterator<RequestProduct> iterator = requestProductRepository.findAll();
-        List<RequestProduct> requestProducts = new ArrayList<>();
-        iterator.forEachRemaining(requestProducts::add);
-        return requestProducts;
+        return requestProductRepository.findAll();
     }
 
     @Override
-    public RequestProduct findById(String id) {
-        return requestProductRepository.findById(id);
+    public RequestProduct findById(Long id) {
+        return requestProductRepository.findById(id).orElse(null);
     }
 }

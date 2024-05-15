@@ -7,14 +7,21 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import static org.assertj.core.api.Assertions.assertThat;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.TestPropertySource;
 
 import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(MockitoExtension.class)
+//@ExtendWith(MockitoExtension.class)
+@DataJpaTest
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class RequestProductRepositoryTest {
-    @InjectMocks
+//    @InjectMocks
     RequestProductRepository requestProductRepository;
 
     @BeforeEach
@@ -25,23 +32,20 @@ public class RequestProductRepositoryTest {
     @Test
     void testCreateAndFind() {
         RequestProduct requestProduct = new RequestProduct();
-        requestProduct.setId("1");
+//        requestProduct.setId("1");
         requestProduct.setName("Gundam");
         requestProduct.setUrl("https://actionfigure.com");
         requestProduct.setPrice(696969);
         requestProduct.setPictureUrl("https://actionfigure.com/image");
-        requestProductRepository.create(requestProduct);
+        requestProductRepository.save(requestProduct);
 
-        Iterator<RequestProduct> iterator = requestProductRepository.findAll();
-        assertTrue(iterator.hasNext());
-        RequestProduct savedProduct = iterator.next();
-        assertEquals(requestProduct.getId(), savedProduct.getId());
-        assertEquals(requestProduct.getName(), savedProduct.getName());
+        Optional<RequestProduct> savedRequestProduct = requestProductRepository.findById(requestProduct.getId());
+        assertThat(savedRequestProduct).isPresent();
     }
 
     @Test
     void testFindAllIfEmpty() {
-        Iterator<RequestProduct> iterator = requestProductRepository.findAll();
-        assertFalse(iterator.hasNext());
+        List<RequestProduct> list = requestProductRepository.findAll();
+        assertThat(list).hasSize(0);
     }
 }

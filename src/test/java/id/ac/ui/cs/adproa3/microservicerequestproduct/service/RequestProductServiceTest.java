@@ -28,7 +28,6 @@ public class RequestProductServiceTest {
     void setUp() {
         requestProducts = new ArrayList<>();
         RequestProduct requestProduct = new RequestProduct();
-        requestProduct.setId("1");
         requestProduct.setName("Gundam");
         requestProduct.setUrl("https://actionfigure.com");
         requestProduct.setPrice(696969);
@@ -38,11 +37,11 @@ public class RequestProductServiceTest {
 
     @Test
     void testCreateRequestProduct() {
-        RequestProduct requestProduct = requestProducts.get(0);
-        doReturn(requestProduct).when(requestProductRepository).create(requestProduct);
+        RequestProduct requestProduct = requestProducts.getFirst();
+        doReturn(requestProduct).when(requestProductRepository).save(requestProduct);
 
         RequestProduct result = requestProductService.create(requestProduct);
-        verify(requestProductRepository, times(1)).create(requestProduct);
+        verify(requestProductRepository, times(1)).save(requestProduct);
         assertEquals(requestProduct.getId(), result.getId());
     }
 }
