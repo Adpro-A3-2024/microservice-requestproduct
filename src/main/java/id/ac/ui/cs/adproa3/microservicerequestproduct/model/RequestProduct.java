@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UuidGenerator;
 
 @Data
@@ -17,9 +18,13 @@ import org.hibernate.annotations.UuidGenerator;
 public class RequestProduct {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(updatable = false, nullable = false)
+    private UUID id;
 
     @NotNull
     private String name;
@@ -33,45 +38,19 @@ public class RequestProduct {
     @NotNull
     private String url;
 
+    @NotNull
+    private String currency;
+
     // Constructors
 
     public RequestProduct() {
     }
 
-    public RequestProduct(String name, String pictureUrl, double price, String url) {
+    public RequestProduct(String name, String pictureUrl, double price, String url,  String currency) {
         this.name = name;
         this.pictureUrl = pictureUrl;
         this.price = price;
         this.url = url;
+        this.currency = currency;
     }
-
-    // Getters and setters
-
-//    public long getId() {
-//        return id;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    public String getPictureUrl() {
-//        return pictureUrl;
-//    }
-//
-//    public void setPictureUrl(String pictureUrl) {
-//        this.pictureUrl = pictureUrl;
-//    }
-//
-//    public String getUrl() {
-//        return url;
-//    }
-//
-//    public void setUrl(String url) {
-//        this.url = url;
-//    }
 }

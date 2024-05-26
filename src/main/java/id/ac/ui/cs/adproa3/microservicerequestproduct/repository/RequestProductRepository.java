@@ -11,6 +11,6 @@ import java.util.Iterator;
 import java.util.List;
 
 @Repository
-public interface RequestProductRepository extends JpaRepository<RequestProduct, Long> {
+public interface RequestProductRepository extends JpaRepository<RequestProduct, UUID> {
 
 }
