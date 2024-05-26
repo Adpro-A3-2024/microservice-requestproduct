@@ -12,5 +12,6 @@ import java.util.List;
 
 @Repository
 public interface RequestProductRepository extends JpaRepository<RequestProduct, UUID> {
-
+    @Query("SELECT rp FROM RequestProduct rp WHERE rp.userId = :userId")
+    List<RequestProduct> findByUserId(UUID userId);
 }

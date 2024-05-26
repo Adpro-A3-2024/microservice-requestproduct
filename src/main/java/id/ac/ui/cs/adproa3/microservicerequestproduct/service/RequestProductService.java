@@ -13,4 +13,5 @@ public interface RequestProductService {
     public double convertCurrency(double amount, double exchangeRate);
     public void delete(UUID id);
     public RequestProduct update(UUID id, RequestProduct updatedRequestProduct);
+    public List<RequestProduct> findByUserId(UUID userId);
 }

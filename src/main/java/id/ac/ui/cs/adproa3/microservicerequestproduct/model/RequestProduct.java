@@ -26,20 +26,33 @@ public class RequestProduct {
     @Column(updatable = false, nullable = false)
     private UUID id;
 
-    @NotNull
+    @NotNull(message = "Tidak boleh bernilai null.")
+    @NotBlank(message = "Tidak boleh kosong.")
     private String name;
 
-    @NotNull
+    @NotNull(message = "Tidak boleh bernilai null.")
+    @NotBlank(message = "Tidak boleh kosong.")
     private String pictureUrl;
 
-    @NotNull
+    @NotNull(message = "Tidak boleh bernilai null.")
+    @NotBlank(message = "Tidak boleh kosong.")
     private double price;
 
-    @NotNull
+    @NotNull(message = "Tidak boleh bernilai null.")
+    @NotBlank(message = "Tidak boleh kosong.")
     private String url;
 
-    @NotNull
+    @NotNull(message = "Tidak boleh bernilai null.")
+    @NotBlank(message = "Tidak boleh kosong.")
     private String currency;
+
+    @NotNull(message = "Tidak boleh bernilai null.")
+    @NotBlank(message = "Tidak boleh kosong.")
+    private UUID userId;
+
+//    @NotNull(message = "Tidak boleh bernilai null.")
+//    @NotBlank(message = "Tidak boleh kosong.")
+//    private String status;
 
     // Constructors
 
