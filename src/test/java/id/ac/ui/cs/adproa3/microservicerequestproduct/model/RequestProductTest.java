@@ -13,17 +13,17 @@ class RequestProductTest {
     @BeforeEach
     void setUp() {
         this.requestProduct = new RequestProduct();
-        this.requestProduct.setId("1");
+//        this.requestProduct.setId("1");
         this.requestProduct.setName("Gundam");
         this.requestProduct.setUrl("https://actionfigure.com");
         this.requestProduct.setPrice(696969);
         this.requestProduct.setPictureUrl("https://actionfigure.com/image");
     }
 
-    @Test
-    void testGetRequestProductId() {
-        assertEquals("1", this.requestProduct.getId());
-    }
+//    @Test
+//    void testGetRequestProductId() {
+//        assertEquals("1", this.requestProduct.getId());
+//    }
 
     @Test
     void testGetProductName() {

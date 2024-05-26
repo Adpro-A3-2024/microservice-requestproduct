@@ -8,40 +8,50 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/request-products")
+@RequestMapping("/api/request-product")
 public class RequestProductController {
-    @Autowired
-    private RequestProductService requestProductService;
+    private final RequestProductService requestProductService;
 
-    @PostMapping
-    public ResponseEntity<RequestProduct> createRequestProduct(@RequestBody RequestProduct requestProduct) {
-        RequestProduct createdRequestProduct = requestProductService.create(requestProduct);
-        if (createdRequestProduct != null) {
-            return new ResponseEntity<>(createdRequestProduct, HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    @Autowired
+    public RequestProductController(RequestProductService requestProductService) {
+        this.requestProductService = requestProductService;
     }
 
     @GetMapping
     public ResponseEntity<List<RequestProduct>> getAllRequestProducts() {
         List<RequestProduct> requestProducts = requestProductService.findAll();
-        if (!requestProducts.isEmpty()) {
-            return new ResponseEntity<>(requestProducts, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return ResponseEntity.ok(requestProducts);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RequestProduct> getRequestProductById(@PathVariable String id) {
+    public ResponseEntity<RequestProduct> getRequestProductById(@PathVariable UUID id) {
         RequestProduct requestProduct = requestProductService.findById(id);
         if (requestProduct != null) {
-            return new ResponseEntity<>(requestProduct, HttpStatus.OK);
+            return ResponseEntity.ok(requestProduct);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping
+    public ResponseEntity<RequestProduct> createRequestProduct(@RequestBody RequestProduct requestProduct) {
+        RequestProduct createdRequestProduct = requestProductService.create(requestProduct);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdRequestProduct);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<RequestProduct> updateRequestProduct(@PathVariable UUID id, @RequestBody RequestProduct updatedRequestProduct) {
+        RequestProduct updatedProduct = requestProductService.update(id, updatedRequestProduct);
+        return ResponseEntity.ok(updatedProduct);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteRequestProduct(@PathVariable UUID id) {
+        requestProductService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
