@@ -37,6 +37,12 @@ public class RequestProductController {
         }
     }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<RequestProduct>> getRequestProductByUserId(@PathVariable UUID userId) {
+        List<RequestProduct> requestProducts = requestProductService.findByUserId(userId);
+        return ResponseEntity.ok(requestProducts);
+    }
+
     @PostMapping
     public ResponseEntity<RequestProduct> createRequestProduct(@RequestBody RequestProduct requestProduct) {
         RequestProduct createdRequestProduct = requestProductService.create(requestProduct);

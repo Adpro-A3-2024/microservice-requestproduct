@@ -28,7 +28,6 @@ public class RequestProductServiceImpl implements RequestProductService{
         return requestProduct;
     }
 
-
     @Override
     public void delete(UUID id) {
         requestProductRepository.deleteById(id);
@@ -64,7 +63,16 @@ public class RequestProductServiceImpl implements RequestProductService{
     }
 
     @Override
+    public List<RequestProduct> findByUserId(UUID userId) {
+        return requestProductRepository.findByUserId(userId);
+    }
+
+    @Override
     public double fetchExchangeRate(String fromCurrency, String toCurrency) {
+        if (fromCurrency.equals("IDR") && toCurrency.equals("IDR")) {
+            return 1.0; // Jika IDR ke IDR, langsung kembalikan 1
+        }
+
         String urlStr = "https://api.exchangerate-api.com/v4/latest/" + fromCurrency;
         Map<String, Object> response = restTemplate.getForObject(urlStr, Map.class);
 
