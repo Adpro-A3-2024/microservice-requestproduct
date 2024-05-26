@@ -27,7 +27,7 @@ public class RequestProductController {
         return ResponseEntity.ok(requestProducts);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/byid/{id}")
     public ResponseEntity<RequestProduct> getRequestProductById(@PathVariable UUID id) {
         RequestProduct requestProduct = requestProductService.findById(id);
         if (requestProduct != null) {
@@ -37,7 +37,7 @@ public class RequestProductController {
         }
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/byuser/{userId}")
     public ResponseEntity<List<RequestProduct>> getRequestProductByUserId(@PathVariable UUID userId) {
         List<RequestProduct> requestProducts = requestProductService.findByUserId(userId);
         return ResponseEntity.ok(requestProducts);
